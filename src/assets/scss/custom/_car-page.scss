@@ -1,0 +1,45 @@
+
+/*================================================
+Gallery Area CSS
+=================================================*/
+.gallery-area {
+  background-color: #f3f3f3;
+  padding: 20px 0 60px;
+}
+
+.gallery-area h2 {
+  font-weight: bolder;
+  margin: 20px 0;
+}
+
+.thumbnail-slider-wrap {
+  margin-top: 15px;
+  height: 85px;
+}
+.thumbnail-slider-wrap .slick-track .slick-slide {
+  text-align: center;
+}
+.thumbnail-slider-wrap .slick-track .slick-slide img {
+  width: 70%;
+}
+.image-slider {
+  width: 90%;
+  margin: 0 auto;
+}
+.slick-slide-label {
+  text-align: center;
+  margin: 20px 0 40px;
+}
+
+.slick-slide-image {
+  margin: 0 auto;
+}
+
+.thumbnail-slider-wrap {
+  margin-top: 40px;
+  margin: 40px auto;
+}
+
+.slick-slide h5 {
+  margin-top: 30px;
+}

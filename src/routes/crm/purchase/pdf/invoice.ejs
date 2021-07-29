@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sales Order TFES (#983773)</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+
+<style>
+    @font-face {
+        font-family: "Roboto";
+        src: url("../font/roboto/Roboto-Regular.eot");
+        src: url("../font/roboto/Roboto-Regular.woff") format("woff"),
+            url("../font/roboto/Roboto-Regular.ttf") format("ttf");
+    }
+
+    @font-face {
+        font-family: "Roboto";
+        src: url("../font/roboto/Roboto-Bold.eot");
+        src: url("../font/roboto/Roboto-Bold.woff") format("woff"),
+            url("../font/roboto/Roboto-Bold.ttf") format("ttf");
+        font-weight: bold;
+    }
+
+    @font-face {
+        font-family: "Roboto";
+        src: url("../font/roboto/Roboto-Light.eot");
+        src: url("../font/roboto/Roboto-Light.woff") format("woff"),
+            url("../font/roboto/Roboto-Light.ttf") format("ttf");
+        font-weight: lighter;
+    }
+
+    body {
+        background: white;
+    }
+
+    h3 {
+        text-align: left;
+        text-decoration: underline;
+    }
+
+    h4 {
+        font-size: 14px;
+        margin: 0;
+    }
+
+    p {
+        font-size: 14px;
+        margin: 0;
+    }
+
+    page {
+        font-family: "Roboto";
+        background: white;
+        display: block;
+        margin: 0;
+        margin-bottom: 0cm;
+        box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+    }
+
+    page[size="A4"] {
+        width: 21cm;
+        height: 29.7cm;
+        letter-spacing: +2px;
+    }
+
+    .content-width {
+        margin-right: 14mm;
+        margin-left: 14mm;
+    }
+
+    .option-title {
+        font-size: 16px;
+        margin: 0;
+    }
+
+    .option-row {
+        margin-bottom: 12px;
+    }
+
+    label.salesBox {
+        font-size: 13px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* Solid border */
+    hr.solid {
+        border-top: 3px solid rgb(228, 83, 83);
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td {
+        font-family: 'Times New Roman', Times, serif;
+        border: 1px solid #494949;
+        padding: 3px;
+    }
+
+    .deliveryIfo td {
+        border: none;
+        max-width:250px;
+        word-wrap : break-word;
+    }
+
+    .productsIfo th {
+        font-family: arial, sans-serif;
+        border: 1px solid #494949;
+        background-color: red;
+        color: white;
+        padding: 5px;
+    }
+
+    .displayNone {
+        border: none;
+    }
+  
+</style>
+
+<body>
+    <% if (newQuotation) { %>
+    <page size="A4">
+        <div class="content-header" style="padding: 25px 0;">
+            <div class="content-width" style="position: relative; z-index: 1;">
+                <div class="row" style="display: flex; justify-content: space-between;">
+                    <div style="padding-bottom: 16px;" class="col-sm-4">
+                        <img src="http://localhost:3002/static/media/tfes-logo.4fdb0cea.png" height="80px" />
+                    </div>
+                    <div style="margin-top: 0px;" class="col-sm-8">
+                        <h2 style="margin-top: 0px;" style="font-family: Arial, Helvetica, sans-serif;">
+                            Sales Order Form <%= newQuotation.quoRef %>
+                        </h2>
+                        <label for="fname" class="salesBox">Customer PO #:</label>
+                        <input type="text" id="customerpo" name="customerpo" style="margin-left: 60px"><br><br>
+
+                        <label for="fname" class="salesBox">Order Date (mm/dd/yy):</label>
+                        <input type="text" id="orderdate" name="orderdate" value=<%=newQuotation.createdDate%>><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="solid" style="margin-top: 0px;">
+        <div class="content-width productContainer" style="margin-right: 30px; margin-left: 30px;">
+            <table class="deliveryIfo">
+                <tr>
+                    <th>
+                        <h3>To:</h3>
+                    </th>
+                    <th></th>
+                    <th>
+                        <h3>Ship To:</h3>
+                    </th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td class="displayNone"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <h4>Customer Name:</h4>
+                    </td>
+                    <td>
+                        <p>(<%=newQuotation.custName%>)</p>
+                    </td>
+                    <td>
+                        <h4>Sales PIC:</h4>
+                    </td>
+                    <td>
+                        <p>(<%=newQuotation.salesPic%>)</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h4>Address:</h4>
+                    </td>
+                    <td>
+                        <p>(<%=newQuotation.address%>)</p>
+                    </td>
+                    <td>
+                        <h4>Quotation Ref:</h4>
+                    </td>
+                    <td> Quotation Quotation Quotation Quotation Quotation</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h4>Tel. No:</h4>
+                    </td>
+                    <td>
+                        <p>(<%=newQuotation.telNo%>)</p>
+                    </td>
+                    <td>
+                        <h4>Incoterm:</h4>
+                    </td>
+                    <td>
+                        <p>(<%=newQuotation.incoterm%>)</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h4>Fax. No:</h4>
+                    </td>
+                    <td>(<%=newQuotation.faxNo%>)</td>
+                    <td>
+                        <h4>Currency:</h4>
+                    </td>
+                    <td>
+                        <p>(<%=newQuotation.currency%>)</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h4>Buyer Name:</h4>
+                    </td>
+                    <td>
+                        <p>(<%=newQuotation.buyerName %>)</p>
+                    </td>
+                    <td>
+                        <h4>Payment:</h4>
+                    </td>
+                    <td>
+                        <p>(<%=newQuotation.paymentTerm %>)</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h4>Buyer Email:</h4>
+                    </td>
+                    <td>
+                        <p>(<%=newQuotation.buyerEmail%>)</p>
+                    </td>
+                    <td>
+                        <h4>Export/Local:</h4>
+                    </td>
+                    <td>
+                        <p>(<%=newQuotation.exportLocal%>)</p>
+                    </td>
+                </tr>
+
+            </table>
+            <!-- <div class="content-body row">
+
+                <div class="row" style="display: flex; justify-content: space-between;">
+                    <div style="padding-bottom: 16px;" class="col-sm-6">
+                        <h3 style="margin-top: 14px;"><u>To:</u></h3>
+                    </div>
+                    <div style="padding-bottom: 16px; padding-right: 235px;" class="col-sm-6">
+                        <h3 style="margin-top: 14px;"><u>Ship To:</u></h3>
+                    </div>
+                </div>
+
+                <div class="row" style="display: flex; justify-content: space-between;">
+                    <div style="padding-bottom: 16px;" class="col-sm-3">
+                        <h4 >Customer Name:</h4>
+                        <h4 >Address:</h4>
+                        <h4>Tel. No:</h4>
+                        <h4 >Fax. No:</h4>
+                        <h4>Buyer Name:</h4>
+                        <h4 >Buyer Email:</h4>
+                    </div>
+                    <div class="col-sm-3">
+                       </p>(Eden Hazard)</p>
+                     
+                        <p >(Tekka Street 28)</p>
+                        <p>(+65 9934 4434)</p>
+                        <p >(031708892)</p>
+                        <p >(Eden Hazard)</p>
+                        <p>(eden@gmail.com)</p>
+                    </div>
+                    <div style="padding-bottom: 16px;" class="col-sm-3">
+                        <h4 >Sales PIC:</h4>
+                        <h4 >Quotation Ref:</h4>
+                        <h4>Incoterm:</h4>
+                        <h4>Currency:</h4>
+                        <h4 >Payment:</h4>
+                        <h4>Export/Local:</h4>
+                    </div>
+                    <div class="col-sm-3">
+                        <p >(Ian Wong)</p>
+                        <p >(#444342)</p>
+                        <p >(FCA)</p>
+                        <p>(USD)</p>
+                        <p >(1 Year 8 Mos)</p>
+                        <p>(Export)</p>
+                    </div>
+                </div> -->
+
+            <br><br>
+
+            <table class="productsIfo">
+                <% newQuotation.salesOrderItems.forEach(function(saleOrder) { %>
+                <tr>
+                    <th>S/N</th>
+                    <th>Cust Ref</th>
+                    <th>Description</th>
+                    <th>UOM</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Ext Price</th>
+                </tr>
+                <tr>
+                    <td><%= saleOrder.SN %></td>
+                    <td><%= saleOrder.custRef %></td>
+                    <td><%= saleOrder.description %></td>
+                    <td>KM</td>
+                    <td><%= saleOrder.qty %></td>
+                    <td><%= saleOrder.unitPrice %></td>
+                    <td><%= saleOrder.extPrice%></td>
+                </tr>
+                <% }); %>
+                <!-- <tr>
+                    <td>2</td>
+                    <td>P8812</td>
+                    <td>This is the description 2</td>
+                    <td>KM</td>
+                    <td>78</td>
+                    <td>30</td>
+                    <td>2340</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>P7712</td>
+                    <td>This is the description 3</td>
+                    <td>Metres</td>
+                    <td>3</td>
+                    <td>30</td>
+                    <td>90</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>P6612</td>
+                    <td>This is the description 4</td>
+                    <td>Inches</td>
+                    <td>1</td>
+                    <td>3000</td>
+                    <td>3000</td>
+                </tr> -->
+                <tr>
+                    <td class="displayNone"></td>
+                    <td class="displayNone"></td>
+                    <td class="displayNone"></td>
+                    <td class="displayNone"></td>
+                    <td class="displayNone"></td>
+                    <td class="title">Discount (<%= newQuotation.currency%>)</td>
+                    <td><%= newQuotation.discount%>%</td>
+                </tr>
+                <tr>
+                    <td class="displayNone"></td>
+                    <td class="displayNone"></td>
+                    <td class="displayNone"></td>
+                    <td class="displayNone"></td>
+                    <td class="displayNone"></td>
+                    <td class="title">Subtotal, after discount (<%= newQuotation.currency%>)</td>
+                    <td>$540.00</td>
+                </tr>
+                <tr>
+                    <td class="displayNone"></td>
+                    <td class="displayNone"></td>
+                    <td class="displayNone"></td>
+                    <td class="displayNone"></td>
+                    <td class="displayNone"></td>
+                    <td class="title">GST (<%= newQuotation.currency%>)</td>
+                    <td><%= newQuotation.gst%></td>
+                </tr>
+                <tr>
+                    <td class="displayNone"></td>
+                    <td class="displayNone"></td>
+                    <td class="displayNone"></td>
+                    <td class="displayNone"></td>
+                    <td class="displayNone"></td>
+                    <td class="title">Grand Total, with GST (<%= newQuotation.currency%>)</td>
+                    <td><%= newQuotation.total%></td>
+                </tr>
+                <tr>
+                    <td class="displayNone"></td>
+                    <td class="displayNone"></td>
+                    <td class="displayNone"></td>
+                    <td class="displayNone"></td>
+                    <td class="displayNone"></td>
+                    <td class="title">Down Payment (<%= newQuotation.currency%>)</td>
+                    <td><%= newQuotation.downPayment%></td>
+                </tr>
+                <tr>
+                    <td class="displayNone"></td>
+                    <td class="displayNone"></td>
+                    <td class="displayNone"></td>
+                    <td class="displayNone"></td>
+                    <td class="displayNone"></td>
+                    <td class="title">Balance (<%= newQuotation.currency%>)</td>
+                    <td><%= newQuotation.total%>-<%= newQuotation.downPayment%></td>
+                </tr>
+            </table>
+            <!-- <div style="border: 1px solid #8f3333; padding: 15px; ">
+                    <h3 class="option-title" style="font-weight: 400;">Summary</h3>
+
+                    <div class="row" style="display: flex; justify-content: space-between;">
+                        <div class="col-sm-6">
+                            <p style="margin-bottom: 3px;">Discount (USD)</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p style="margin-bottom: 3px;">10%</p>
+                        </div>
+                    </div>
+
+                    <div class="row" style="display: flex; justify-content: space-between;">
+                        <div class="col-sm-6">
+                            <p style="margin: 3px">Subtotal, after discount (USD)</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p style="margin: 3px">$540.00</p>
+                        </div>
+                    </div>
+
+                    <div class="row" style="display: flex; justify-content: space-between;">
+                        <div class="col-sm-6">
+                            <p style="margin: 3px">GST (USD)</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p style="margin: 3px">7%</p>
+                        </div>
+                    </div>
+
+                    <div class="row" style="display: flex; justify-content: space-between;">
+                        <div class="col-sm-6">
+                            <p style="margin: 3px">Grand Total, with GST (USD)</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p style="margin: 3px">$577.80</p>
+                        </div>
+                    </div>
+
+                    <hr class="solid" style="margin-top: 0px;">
+
+                    <div class="row" style="display: flex; justify-content: space-between;">
+                        <div class="col-sm-6">
+                            <p style="margin: 3px">Down Payment (USD)</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p style="margin: 3px">$177.80</p>
+                        </div>
+                    </div>
+
+                    <div class="row" style="display: flex; justify-content: space-between;">
+                        <div class="col-sm-6">
+                            <p style="margin: 3px">Balance (USD)</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p style="margin: 3px">$400.00</p>
+                        </div>
+                    </div>
+                </div> -->
+
+            <div style="width: 100%; clear: both; float: left ;margin-top:10px;">
+                <h5>*By signing I agree to the attached terms and conditions, and are bound by them, as well as our
+                    software license agreement which can be reviewed on
+                    at tfes.com</h5>
+
+                <p>Customer: _________________</p>
+                <h2 style="color: rgb(72, 75, 230); text-align: center;">Thank You for your Business!</h2>
+            </div>
+        </div>
+    </page>
+    <% } %>
+</body>
+
+<script src="" async defer></script>
+
+</html>

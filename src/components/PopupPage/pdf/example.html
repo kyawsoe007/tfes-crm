@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en" style="zoom:0.75">
+<!-- <html lang="en"> -->
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>Vehicle Configuration</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
+  <!-- Bootstrap core CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Material Design Bootstrap -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.9/css/mdb.min.css" rel="stylesheet" />
+  <!-- New font Lato -->
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+</head>
+
+<style>
+  @font-face {
+    font-family: "Roboto";
+    src: url("../font/roboto/Roboto-Regular.eot");
+    src: url("../font/roboto/Roboto-Regular.woff") format("woff"),
+      url("../font/roboto/Roboto-Regular.ttf") format("ttf");
+  }
+
+  @font-face {
+    font-family: "Roboto";
+    src: url("../font/roboto/Roboto-Bold.eot");
+    src: url("../font/roboto/Roboto-Bold.woff") format("woff"),
+      url("../font/roboto/Roboto-Bold.ttf") format("ttf");
+    font-weight: bold;
+  }
+
+  @font-face {
+    font-family: "Roboto";
+    src: url("../font/roboto/Roboto-Light.eot");
+    src: url("../font/roboto/Roboto-Light.woff") format("woff"),
+      url("../font/roboto/Roboto-Light.ttf") format("ttf");
+    font-weight: lighter;
+  }
+
+  body {
+    background: white;
+  }
+
+  page {
+    font-family: "Roboto";
+    background: white;
+    display: block;
+    margin: 0;
+    margin-bottom: 0cm;
+    box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+  }
+
+  page[size="A4"] {
+    width: 21cm;
+    height: 29.7cm;
+    letter-spacing: +2px;
+  }
+
+  .content-width {
+    margin-right: 14mm;
+    margin-left: 14mm;
+  }
+
+  .option-title {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  .option-row {
+    margin-bottom: 12px;
+  }
+
+  .productContainer {
+    font-family: 'Lato', sans-serif;
+  }
+
+
+  /* name and details class here */
+  .productContainer .name {
+    font-size: 13px;
+    font-weight: 300;
+  }
+
+  .productContainer .details {
+    font-size: 13px;
+    font-weight: 300;
+    text-align: justify;
+  }
+
+  table {
+    width: 100%;
+    display: block;
+  }
+
+  table,
+  th,
+  td {
+    /* border: 1px solid #616161; */
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    padding: 10px;
+    text-align: left;
+    margin: auto;
+  }
+
+  tr {
+    margin: auto;
+    border-top: 1px solid #666666;
+    border-bottom: 1px solid #666666;
+  }
+
+  #t01 tr:nth-child(even) {
+    background-color: #eee;
+  }
+
+  #t01 tr:nth-child(odd) {
+    background-color: #fff;
+  }
+
+  #t01 th {
+    background-color: black;
+    color: white;
+  }
+</style>
+
+<body>
+  <% 
+    function formatPrice(price) { 
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") 
+    } 
+  %>
+  <page size="A4">
+    <div class="content-header" style="padding: 50px 0; margin-bottom: 15px;">
+      <div class="content-width" style="position: relative; z-index: 1;">
+        <div style="padding-bottom: 16px;">
+          <img src="../assets/img/logo-white.png" />
+        </div>
+        <p>
+          <span style="font-size: 24px; font-weight: 500; color: white !important;">
+            Thank you for your interest
+          </span>
+          <br />
+          <span style="font-weight: 400; color: white !important;">
+            Here are the details of your configured vehicle
+          </span>
+        </p>
+        <div style="position:absolute; top: -10px; left: 120mm; color: white !important;">Serial no: <%= serial_no %>
+        </div>
+      </div>
+
+      <img src="../assets/img/venturecarimage.jpg" style="position:absolute; top:-80px; left:0; width: 210mm;" />
+
+    </div>
+
+    <div class="content-width productContainer">
+      <div class="content-body row">
+        <div class="content-body-left col-xs-12">
+          <table>
+            <tr>
+              <th width="30%">
+                <p class="option-title">Car Grade</p>
+              </th>
+              <th width="20%">
+
+                <img src="<%= ProductGrade.images[0].path %>" />
+
+              </th>
+              <th width="30%">
+
+                <div class="name"><%= ProductGrade.name %></div>
+
+              </th>
+              <th>
+
+                <% if(ProductGrade.price != null){%>
+                <div class="details">$<%= formatPrice(ProductGrade.price.toFixed(2)) %></div>
+                <% } %>
+
+              </th>
+
+            </tr>
+            <% Object.entries(ProductExterior.selected).map(([key, value]) => { 
+              if(value != null) {
+              %>
+            <!--Colors-->
+            <tr>
+              <td>
+                <p class="option-title"><%= key %></p>
+              </td>
+
+
+              <td>
+
+                <img src="<%= value.thumbnail %>" width="70" height="70" />
+              </td>
+              <td>
+
+                <div class="name"><%= value.name %></div>
+              </td>
+              <td>
+
+                <% if(value.price != null){%>
+                <div class="details">$<%= formatPrice(value.price.toFixed(2)) %></div>
+                <% } %>
+              </td>
+            </tr>
+            <% 
+            }
+           }) %>
+
+            <% Object.entries(ProductInterior.selected).map(([key, value]) => { 
+              if(value != null) {
+              %>
+            <!--Material-->
+            <tr>
+              <td>
+                <p class="option-title"><%= key %></p>
+              </td>
+
+              <td>
+
+                <img src="<%= value.thumbnail %>" />
+              </td>
+              <td>
+
+                <div class="name"><%= value.name %></div>
+              </td>
+              <td>
+                <div class="price">
+                  <% if(value.price != null){%>
+                  <div class="details">$<%= formatPrice(value.price.toFixed(2)) %></div>
+                  <% } %>
+                </div>
+              </td>
+        </div>
+        </tr>
+        <% 
+          }
+          }) %>
+        <% Object.entries(ProductRims.selected).map(([key, value]) => { 
+            if(value != null) {
+            %>
+        <!--Rims-->
+        <tr>
+          <td>
+            <p class="option-title"><%= key %></p>
+          </td>
+
+
+          <td>
+
+            <img src="<%= value.thumbnail %>" />
+
+          </td>
+          <td>
+
+            <div class="name"><%= value.name %></div>
+
+          </td>
+          <td>
+            <div class="price">
+              <% if(value.price != null){%>
+              <div class="details">$<%= formatPrice(value.price.toFixed(2)) %></div>
+              <% } %>
+            </div>
+          </td>
+
+        </tr>
+        <%
+            }
+          }) %>
+        <tr>
+          <td>
+            <p class="option-title">Car Accessories</p>
+          </td>
+
+          <% 
+        if(ProductAccessories.selected != null) {
+          let count = 1;
+          Object.keys(ProductAccessories.selected).map(key => {
+            return ProductAccessories.selected[key].map(item => {
+        %>
+
+          <td>
+            <!-- <div class="col-xs-1"><%= count %></div> -->
+
+            <img src="<%= item.thumbnail %>" width="70" height="70" />
+          </td>
+          <td>
+            <div class="name"><%= count %> <%= key + ":" + item.name %></div>
+            <!-- <div class="name"><%= CoeSelected.name %></div> -->
+          </td>
+          <td>
+            <div class="price">
+              <% if(item.price != null){%>
+              <div class="details">$<%= formatPrice(item.price.toFixed(2)) %></div>
+              <% } %>
+            </div>
+          </td>
+      </div>
+      <% 
+        count ++;
+            })
+        })
+        } else { %>
+      <td colspan="3">
+        <div class="details">No Accessories selected.</div>
+      </td>
+      <%
+        } %>
+      </tr>
+      <tr>
+        <td>
+          <p class="option-title">COE Package</p>
+        </td>
+        <td></td>
+        <td>
+
+          <div class="name"><%= CoeSelected.name %></div>
+        </td>
+        <td>
+
+          <% if(CoeSelected.price != null){%>
+          <div class="details">$<%= formatPrice(CoeSelected.price.toFixed(2)) %></div>
+          <% } %>
+        </td>
+      </tr>
+      <tr>
+        <% if(AftersaleSelected.warranty != null){ %>
+        <td>
+          <p class="option-title">Warranty Package</p>
+        </td>
+        <td></td>
+
+        <td>
+
+          <div class="name"><%= AftersaleSelected.warranty.name %></div>
+        </td>
+        <td>
+
+
+          <% if(AftersaleSelected.warranty.price != null){%>
+          <div class="name">$<%= formatPrice(AftersaleSelected.warranty.price.toFixed(2)) %></div>
+          <% } %>
+
+        </td>
+        <% } %>
+      </tr>
+
+      <tr>
+        <% if(AftersaleSelected.servicing != null){ %>
+        <td>
+          <p class="option-title">Servicing Package</p>
+        </td>
+        <td></td>
+        <td>
+          <div class="name"><%= AftersaleSelected.servicing.name %></div>
+
+        </td>
+        <td>
+
+          <% if(AftersaleSelected.servicing.price != null){ %>
+          <div class="details">$<%= formatPrice(AftersaleSelected.servicing.price.toFixed(2)) %></div>
+          <% } %>
+        </td>
+
+
+        <% } %>
+      </tr>
+
+      </table>
+
+      <div class="content-body-bottom col-xs-12"
+        style="border: 1px solid #912525; padding: 15px; margin: 25px 0px 0px 4px">
+        <p class="option-title" style="font-weight: 400; color: blue">Loan Calculator &nbsp; &nbsp; <i
+            style="font-size: 11px; margin-bottom: 12px;">(*Please approach our staff for more information)</i></p>
+        <% if(LoanCalculator.loanAmount === 0) { %>
+        <!-- <p>Please approach our staff for more information</p> -->
+        <% } else { %>
+        <div class="row option-row">
+          <div class="col-xs-5">Loan Term</div>
+          <div class="col-xs-7"><%= LoanCalculator.loanTerm %> months</div>
+        </div>
+        <div class="row option-row">
+          <div class="col-xs-5">Loan Amount</div>
+          <div class="col-xs-7">
+            $<%= formatPrice(LoanCalculator.loanAmount.toFixed(2)) %>
+          </div>
+        </div>
+        <div class="row option-row">
+          <div class="col-xs-5">Interest Rate</div>
+          <div class="col-xs-7"><%= LoanCalculator.interestRate %> %</div>
+        </div>
+        <div class="row option-row">
+          <div class="col-xs-5">Down Payment</div>
+          <div class="col-xs-7">
+            $<%= formatPrice(LoanCalculator.downPayment.toFixed(2)) %>
+          </div>
+        </div>
+        <div class="row option-row">
+          <div class="col-xs-5">Deposit</div>
+          <div class="col-xs-7">
+            $<%= formatPrice(LoanCalculator.deposit.toFixed(2)) %>
+          </div>
+        </div>
+        <div class="row option-row">
+          <div class="col-xs-5">Monthly Payment</div>
+          <div class="col-xs-7">
+            $<%= formatPrice(LoanCalculator.monthlyInstallment.toFixed(2)) %>
+          </div>
+        </div>
+        <% } %>
+        <p class="option-title" style="font-weight: 400;">
+          Overall Summary
+        </p>
+        <div class="row option-row">
+          <div class="col-xs-5">Subtotal</div>
+          <div class="col-xs-7">
+            $<%= formatPrice(ProductTotal.subtotal.toFixed(2)) %>
+          </div>
+        </div>
+        <div class="row option-row">
+          <div class="col-xs-5">Misc. Fees</div>
+          <div class="col-xs-7">
+            $<%= formatPrice(ProductTotal.misc.toFixed(2)) %>
+          </div>
+        </div>
+        <div class="row option-row">
+          <div class="col-xs-5">Total</div>
+          <div class="col-xs-7">
+            $<%= formatPrice(ProductTotal.total.toFixed(2)) %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+
+    </div>
+    </div>
+
+  </page>
+</body>
+
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="../assets/jss/mdb.js"></script>
+<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.9/js/mdb.js"></script>-->
+
+</html>
